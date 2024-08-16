@@ -63,7 +63,7 @@ blog content to XML.
 Pass the path to this file to `wp2jekyll`, along with any desired options.
 
 ```bash
-python3 wp2jekyll seanthegeeknet.WordPress.2024-08-12.xml
+python3 wp2jekyll.py seanthegeeknet.WordPress.2024-08-12.xml
 ```
 
 ## Clean up the Markdown (optional)
