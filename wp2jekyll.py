@@ -27,11 +27,11 @@ h2t.unicode_snob = True
 h2t.body_width = 0
 
 
-def download_file(url: str, output_dir:str):
+def download_file(url: str, output_dir: str):
     response = requests.get(url)
     response.raise_for_status()
-    filename = unquote(os.path.basename(urlparse(url)))
-    os.makedirs(output_dir)
+    filename = unquote(os.path.basename(urlparse(url).path))
+    os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, filename), "wb") as output_file:
         output_file.write(response.content)
 
