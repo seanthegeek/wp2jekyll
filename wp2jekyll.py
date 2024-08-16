@@ -20,9 +20,9 @@ h2t = html2text.HTML2Text()
 h2t.unicode_snob = True
 # This option says it protects links from wrapping, but it doesn't
 # https://github.com/Alir3z4/html2text/issues/425
-#h2t.protect_links = True
+# h2t.protect_links = True
 # This option makes all lines reference links - very hard to keep track of
-#h2t.wrap_links = False
+# h2t.wrap_links = False
 # So, the inly viable option is to turn off the body_width limit
 h2t.body_width = 0
 
@@ -50,11 +50,12 @@ def create_directory(path):
     if not (os.path.exists(path)):
         os.mkdir(path)
     elif not (os.path.isdir):
-        raise ValueError(f"{path} already exists but is not a directory") 
+        raise ValueError(f"{path} already exists but is not a directory")
+
 
 arg_parser = argparse.ArgumentParser(
     formatter_class=argparse.ArgumentDefaultsHelpFormatter,
-    prog="wp2jekyll",
+    prog="wp2jekyll.py",
     description=__doc__)
 
 arg_parser.add_argument("--version", action="version", version=__version__)
@@ -106,7 +107,7 @@ with open(os.path.join(data_dir, "authors.yml"), "w",
         authors_[str(author.author_login.string)] = dict(name=str(
             author.author_display_name.string))
     authors_file.write(yaml.dump(dict(authors_)))
-    
+
 rss_channel = xml_soup.rss.channel
 posts = [x.parent for x in rss_channel.find_all("post_type", string="post")]
 pages = [x.parent for x in rss_channel.find_all("post_type", string="page")]
@@ -135,7 +136,7 @@ for item in items:
     name = str(item.post_name.string)
     title = str(item.title.string)
     author = str(item.creator.string)
-    base_filename= f"{local_date}-{name}"
+    base_filename = f"{local_date}-{name}"
     publish = str(item.status.string) == "publish"
     pin = str(item.status.is_sticky) == "1"
     description = item.find("description")
@@ -148,8 +149,8 @@ for item in items:
         excerpt = str(excerpt.string)
         if (excerpt == ""):
             excerpt = None
-    if description == None:
-        description =  excerpt
+    if description is None:
+        description = excerpt
     permalink = str(item.link.string).replace(wp_base_url, "").rstrip("/")
     content = str(item.encoded.string)
     content_markdown = h2t.handle(content)
@@ -162,19 +163,19 @@ for item in items:
         image = dict()
         thumbnail_id = item_metadata["_thumbnail_id"]
         thumbnail_item = rss_channel.find_all("post_id",
-                                          string=thumbnail_id)[0].parent
+                                              string=thumbnail_id)[0].parent
         thumbnail_metadata = get_wp_item_metadata(thumbnail_item)
         image["path"] = str(thumbnail_item.attachment_url.string)
         if "_wp_attachment_image_alt" in thumbnail_metadata:
             image["alt"] = thumbnail_metadata["_wp_attachment_image_alt"]
     seo_title = None
-    if  "_yoast_wpseo_title" in item_metadata:
+    if "_yoast_wpseo_title" in item_metadata:
         seo_title = item_metadata["_yoast_wpseo_title"]
     if "_yoast_wpseo_metadesc" in item_metadata:
         description = item_metadata["_yoast_wpseo_metadesc"]
     front_data = dict(
         layout=item_type,
-         permalink=permalink,
+        permalink=permalink,
         title=title,
         seo_title=seo_title,
         description=description,
@@ -188,7 +189,7 @@ for item in items:
         tags=tags
     )
     for key in ["description", "image", "seo_title"]:
-        if front_data[key] == None or front_data[key] == "None":
+        if front_data[key] is None:
             front_data.pop(key)
     if not (args.include_author):
         front_data.pop("author")
@@ -197,7 +198,7 @@ for item in items:
     if not (args.no_url_rewrites):
         permalink.replace(wp_base_url, "")
 
-    front_data = yaml.dump(front_data, 
+    front_data = yaml.dump(front_data,
                            default_flow_style=False,
                            sort_keys=False)
 
@@ -207,8 +208,8 @@ for item in items:
         html_file.write(content)
     md_file_content = f"---\n{front_data}---\n{content_markdown}"
     if not (args.no_url_rewrites):
-           md_file_content = md_file_content.replace(wp_uploads_url,
-                                                     new_uploads_uri)
+        md_file_content = md_file_content.replace(wp_uploads_url,
+                                                  new_uploads_uri)
     markdown_path = os.path.join(output_dir, f"_{item_type}s",
                                  f"{base_filename}.md")
     with open(markdown_path, "w", newline="\n") as md_file:

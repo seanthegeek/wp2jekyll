@@ -33,6 +33,8 @@ other themes too.
 `date` | The GMT timestamp of the post or page in `YYYY:MM:DD HH:MM SS -0000` format
 `last_modified_at` | The GMT modification timestamp of the post or page in `YYYY:MM:DD HH:MM SS -0000` format
 `image:`<br><code>  path</code>:<br><code>  alt</code>:| Path to the featured image and optional `alt` text
+`publish` | Sets if the post or page is published (`True` or `False`)
+`pin` | Sets if the post or page is pinned (`True` or `False`)
 `categories` | A list of categories
 `tags` | A list of tags
 
@@ -111,7 +113,7 @@ sharing option.
 ## CLI help
 
 ```text
-usage: wp2jekyll [-h] [--version] [--output OUTPUT] [--include-author] [--no-downloads] [--no-url-rewrites] xml_path
+usage: wp2jekyll.py [-h] [--version] [--output OUTPUT] [--include-author] [--no-downloads] [--no-url-rewrites] [--no-permalinks] xml_path
 
 positional arguments:
   xml_path           the path to the WordPress export XML file
@@ -122,7 +124,7 @@ options:
   --output OUTPUT    the directory to output to (default: .)
   --include-author   include the author in the Front Data (default: False)
   --no-downloads     do not attempt to download media files (default: False)
-  --no-url-rewrites  do not rewrite URLs (default: False)
+  --no-url-rewrites  do not rewrite media URLs (default: False)
   --no-permalinks    do not retain the original permalinks (default: False)
 ```
 
