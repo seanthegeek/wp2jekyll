@@ -49,7 +49,7 @@ other themes too.
 
 Python >= 3.2
 
-Install the python dependencies before using `wp2jekyll`.
+Install the Python dependencies before using `wp2jekyll`.
 
 ```bash
 python3 -m pip install -r requirements.txt
