@@ -1,6 +1,6 @@
 # wp2jekyll
 
-A Python script that makes migrating from WordPress to Jekyll[0] as painless as
+A Python script that makes migrating from WordPress to [Jekyll][0] as painless as
 possible.
 
 I wrote this script after going through the [painful process][1] of manually
