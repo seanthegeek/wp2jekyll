@@ -88,7 +88,7 @@ It's not perfect. Here are some issues I ran into.
 ### No nested tables
 
 Markdown does not support nested tables, but Markdown does support HTML
-inside of Markdown document. If you have a document with a nested table,
+inside of a Markdown document. If you have a document with a nested table,
 replace the entire (i.e., outer) table with the HTML in the original post
 or page.
 
