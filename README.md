@@ -1,6 +1,6 @@
 # wp2jekyll
 
-A Python script that makes migrating from WordPress to Flask as painless as
+A Python script that makes migrating from WordPress to Jekyll[0] as painless as
 possible.
 
 I wrote this script after going through the [painful process][1] of manually
@@ -128,6 +128,7 @@ options:
   --no-permalinks    do not retain the original permalinks (default: False)
 ```
 
+[0]: https://jekyllrb.com/
 [1]: https://seanthegeek.net/posts/my-painful-but-worthwhile-migration-from-wordpress-to-jekyll/
 [2]: https://jekyllrb.com/docs/front-matter/
 [3]: https://chirpy.cotes.page/posts/write-a-new-post/
