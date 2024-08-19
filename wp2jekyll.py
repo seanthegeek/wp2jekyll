@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 """A Python script that makes migrating from WordPress to Flask as painless as
 possible"""
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 h2t = html2text.HTML2Text()
 h2t.unicode_snob = True
@@ -151,7 +151,7 @@ for item in items:
             excerpt = None
     if description is None:
         description = excerpt
-    permalink = str(item.link.string).replace(wp_base_url, "").rstrip("/")
+    permalink = str(item.link.string).replace(wp_base_url, "")
     content = str(item.encoded.string)
     content_markdown = h2t.handle(content)
     categories = [str(x.string) for x in item.find_all(domain="category")]
