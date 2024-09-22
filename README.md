@@ -19,7 +19,7 @@ This CLI script takes a WordPress export XML file and:
 ## How is this different than the Jekyll Exporter Wordpress plugin?
 
 wp2jekyll does a few things that Jeyll Eporter [WordPress plugin][8]
-by Ben Baltar does not:
+by Ben Balter does not:
 
 - By default, wp2jekyll will retain the existing permalink of posts and pages, so incoming links don't break.
 - Rather than just dumping all WordPress post metadata to YAML in the Front Data, wp2jekyll only retains items useful for SEO (i.e, the featured image and Yoast metadata), and maps them to variable names that are expected by many Jekyll themes. This makes the Front Data much cleaner and useful.
