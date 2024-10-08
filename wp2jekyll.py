@@ -10,11 +10,12 @@ import requests
 import yaml
 import html2text
 from bs4 import BeautifulSoup
+from pymarkdown.api import PyMarkdownApi, PyMarkdownApiException
 
 """A Python script that makes migrating from WordPress to Flask as painless as
 possible"""
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 h2t = html2text.HTML2Text()
 h2t.unicode_snob = True
@@ -26,6 +27,7 @@ h2t.unicode_snob = True
 # So, the inly viable option is to turn off the body_width limit
 h2t.body_width = 0
 
+pymd = PyMarkdownApi()
 
 def download_file(url: str, output_dir: str):
     response = requests.get(url)
@@ -71,6 +73,8 @@ arg_parser.add_argument("--no-url-rewrites", action="store_true",
                         help="do not rewrite media URLs")
 arg_parser.add_argument("--no-permalinks", action="store_true",
                         help="do not retain the original permalinks")
+arg_parser.add_argument("--no-cleanup", action="store_true",
+                        help="do not clean up the converted Markdown content")
 args = arg_parser.parse_args()
 output_dir = args.output
 with open(args.xml_path) as xml_file:
@@ -154,6 +158,13 @@ for item in items:
     permalink = str(item.link.string).replace(wp_base_url, "")
     content = str(item.encoded.string)
     content_markdown = h2t.handle(content)
+    try:
+        if not args.no_cleanup:
+            fix_result = pymd.fix_string(content_markdown)
+            if fix_result.was_fixed:
+                content_markdown = fix_result.fixed_file
+    except PyMarkdownApiException:
+        pass
     categories = [str(x.string) for x in item.find_all(domain="category")]
     tags = [str(x.string) for x in item.find_all(domain="post_tag")]
     image = None

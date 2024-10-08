@@ -2,4 +2,4 @@ lxml
 beautifulsoup4
 requests
 html2text
-pymarkdownlnt
+pymarkdownlnt>=0.9.24
