@@ -126,6 +126,7 @@ options:
   --no-downloads     do not attempt to download media files (default: False)
   --no-url-rewrites  do not rewrite media URLs (default: False)
   --no-permalinks    do not retain the original permalinks (default: False)
+  --no-cleanup       do not clean up the converted Markdown content (default: False)
 ```
 
 [0]: https://jekyllrb.com/
