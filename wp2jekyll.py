@@ -102,7 +102,7 @@ create_directory(wp_html_pages_dir)
 xml_soup = BeautifulSoup(raw_xml, features="xml")
 wp_base_url = str(xml_soup.channel.base_site_url.string).rstrip("")
 wp_uploads_url = f"{wp_base_url}/wp-content/uploads"
-new_uploads_uri = "/assets/wp-content/uploads"
+new_uploads_uri = "./assets/wp-content/uploads"
 authors = xml_soup.channel.find_all("author")
 with open(os.path.join(data_dir, "authors.yml"), "w",
           newline="\n") as authors_file:
