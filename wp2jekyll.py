@@ -120,7 +120,7 @@ attachments = [x.parent for x in rss_channel.find_all("post_type",
 
 for attachment in attachments:
     attachment_url = str(attachment.attachment_url.string)
-    download_dir = attachment_url.replace(wp_uploads_url, new_uploads_uri)
+    download_dir = attachment_url.replace(wp_uploads_url, new_uploads_uri.lstrip("/"))
     download_dir = os.path.join(output_dir, download_dir)
     if not (args.no_downloads):
         try:
